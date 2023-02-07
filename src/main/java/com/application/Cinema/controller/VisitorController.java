@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/cinema/visitor")
-//@Api("Controller for visitor operations")
 public class VisitorController {
 
     private final VisitorService visitorService;
@@ -33,7 +32,6 @@ public class VisitorController {
     }
 
     @GetMapping()
-//    @ApiOperation("Get all list of visitors")
     public List<VisitorDTO> getVisitors() {
         return visitorService.getVisitors().stream().map(this::convertToVisitorDTO)
                 .collect(Collectors.toList());
@@ -45,7 +43,6 @@ public class VisitorController {
     }
 
     @PostMapping
-//    @ApiOperation("Add new visitor to DB")
     public ResponseEntity<HttpStatus> registerNewVisitor(@RequestBody @Valid VisitorDTO visitorDTO,
                                                          BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
@@ -66,13 +63,11 @@ public class VisitorController {
     }
 
     @DeleteMapping(path = "{visitorId}")
-//    @ApiOperation("Delete visitor from DB")
     public void deleteVisitor(@PathVariable("visitorId") Integer visitorId) {
         visitorService.deleteVisitor(visitorId);
     }
 
     @PutMapping(path = "{visitorId}")
-//    @ApiOperation("Update exist visitor information")
     public void updateVisitor(@PathVariable("visitorId") Integer visitorId,
                               @RequestParam(required = false) String name,
                               @RequestParam(required = false) String email) {

@@ -1,5 +1,6 @@
 package com.application.Cinema.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -16,17 +17,21 @@ public class VisitorDTO {
     @Column(name = "visitor_name")
     @NotEmpty(message = "name shouldn't be empty")
     @Size(min = 2, max = 32, message = "name should be between 2 and 32 characters")
+    @JsonProperty(value = "Name")
     private String name;
 
     @Transient
+    @JsonProperty(value = "Age")
     private Integer age;
 
     @Column(name = "email")
     @Email
     @NotEmpty(message = "email shouldn't be empty")
+    @JsonProperty(value = "Email")
     private String email;
 
     @Column(name = "dob")
+    @JsonProperty(value = "DOB")
     private LocalDate dob;
 
     public String getName() {

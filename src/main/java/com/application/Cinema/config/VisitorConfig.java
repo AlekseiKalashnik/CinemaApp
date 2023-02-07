@@ -21,13 +21,13 @@ public class VisitorConfig {
             Visitor samuel = new Visitor(
                     "Samuel",
                     "samuel@gmail.com",
-                    LocalDate.of(2001, Month.JANUARY, 5)
+                    LocalDate.of(2000, Month.JANUARY, 5)
             );
 
             Visitor micky = new Visitor(
                     "Micky",
                     "micky@gmail.com",
-                    LocalDate.of(1995, Month.JANUARY, 4)
+                    LocalDate.of(1995, Month.JULY, 15)
             );
 
             repository.saveAll(

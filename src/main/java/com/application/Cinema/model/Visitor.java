@@ -1,6 +1,7 @@
 package com.application.Cinema.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -13,7 +14,6 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-
 @Entity
 @Table(name = "visitor")
 @NoArgsConstructor
@@ -24,22 +24,27 @@ public class Visitor {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty(value = "Id")
     private Integer id;
 
     @Column(name = "visitor_name")
     @NotEmpty(message = "name shouldn't be empty")
     @Size(min = 2, max = 32, message = "name should be between 2 and 32 characters")
+    @JsonProperty(value = "Name")
     private String name;
 
     @Transient
+    @JsonProperty(value = "Age")
     private Integer age;
 
     @Column(name = "email")
     @Email
     @NotEmpty(message = "email shouldn't be empty")
+    @JsonProperty(value = "Email")
     private String email;
 
     @Column(name = "dob")
+    @JsonProperty(value = "DOB")
     private LocalDate dob;
 
     @Column(name = "created_at")

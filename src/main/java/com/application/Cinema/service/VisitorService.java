@@ -74,6 +74,7 @@ public class VisitorService {
             }
             visitor.setEmail(email);
         }
+        visitor.setUpdatedAt(LocalDateTime.now());
     }
 
     private void enrichVisitor(Visitor visitor) {
