@@ -2,7 +2,7 @@ package com.application.Cinema.service;
 
 import com.application.Cinema.model.Visitor;
 import com.application.Cinema.repository.VisitorRepository;
-import com.application.Cinema.util.VisitorNotFoundException;
+import com.application.Cinema.util.exception_handling.VisitorNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,7 +59,7 @@ public class VisitorService {
         log.info("method updateVisitor in VisitorService");
         Visitor visitor = visitorRepository.findById(visitorId)
                 .orElseThrow(() -> new IllegalStateException(
-                        "visitor with id" + visitorId + " does not exists"
+                        "visitor with id " + visitorId + " does not exists"
                 ));
 
         if(name != null && name.length() > 0 && !Objects.equals(visitor.getName(), name)) {
