@@ -1,4 +1,4 @@
-package com.application.Cinema.util.exception_handling;
+package com.application.Cinema.util.exception_handling.visitorException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

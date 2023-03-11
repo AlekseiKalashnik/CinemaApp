@@ -14,7 +14,7 @@ import java.util.List;
 @Configuration
 public class VisitorConfig {
 
-    @Bean
+    @Bean("visitorRunner")
     CommandLineRunner commandLineRunner(
             VisitorRepository repository) {
         return args -> {
@@ -36,7 +36,7 @@ public class VisitorConfig {
         };
     }
 
-    @Bean
+    @Bean("visitorMapper")
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }

@@ -2,7 +2,7 @@ package com.application.Cinema.service;
 
 import com.application.Cinema.model.Visitor;
 import com.application.Cinema.repository.VisitorRepository;
-import com.application.Cinema.util.exception_handling.VisitorNotFoundException;
+import com.application.Cinema.util.exception_handling.visitorException.VisitorNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

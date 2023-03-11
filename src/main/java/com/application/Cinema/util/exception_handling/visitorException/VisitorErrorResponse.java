@@ -1,4 +1,4 @@
-package com.application.Cinema.util.exception_handling;
+package com.application.Cinema.util.exception_handling.visitorException;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

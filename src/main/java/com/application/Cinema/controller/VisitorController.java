@@ -3,12 +3,13 @@ package com.application.Cinema.controller;
 import com.application.Cinema.dto.VisitorDTO;
 import com.application.Cinema.model.Visitor;
 import com.application.Cinema.service.VisitorService;
-import com.application.Cinema.util.exception_handling.VisitorErrorResponse;
-import com.application.Cinema.util.exception_handling.VisitorNotCreatedException;
-import com.application.Cinema.util.exception_handling.VisitorNotFoundException;
+import com.application.Cinema.util.exception_handling.visitorException.VisitorErrorResponse;
+import com.application.Cinema.util.exception_handling.visitorException.VisitorNotCreatedException;
+import com.application.Cinema.util.exception_handling.visitorException.VisitorNotFoundException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,7 +27,7 @@ public class VisitorController {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public VisitorController(VisitorService visitorService, ModelMapper modelMapper) {
+    public VisitorController(VisitorService visitorService, @Qualifier("visitorMapper") ModelMapper modelMapper) {
         this.visitorService = visitorService;
         this.modelMapper = modelMapper;
     }
