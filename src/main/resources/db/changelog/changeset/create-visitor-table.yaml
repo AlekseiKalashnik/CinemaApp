@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-visitor
+      author: admin
+      changes:
+        - createTable:
+            tableName: visitor
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: visitor_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: true
+                    check: age > 0
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dob
+                  type: date
+              - column:
+                  name: created_at
+                  type: timestamp
+              - column:
+                  name: updated_at
+                  type: timestamp
+              - column:
+                  name: created_who
+                  type: varchar(255)
+
