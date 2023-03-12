@@ -3,9 +3,7 @@ package com.application.Cinema.controller;
 import com.application.Cinema.dto.VisitorDTO;
 import com.application.Cinema.model.Visitor;
 import com.application.Cinema.service.VisitorService;
-import com.application.Cinema.util.exception_handling.visitorException.VisitorErrorResponse;
 import com.application.Cinema.util.exception_handling.visitorException.VisitorNotCreatedException;
-import com.application.Cinema.util.exception_handling.visitorException.VisitorNotFoundException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,21 +79,5 @@ public class VisitorController {
 
     private VisitorDTO convertToVisitorDTO(Visitor visitor) {
         return modelMapper.map(visitor, VisitorDTO.class);
-    }
-
-    @ExceptionHandler
-    private ResponseEntity<VisitorErrorResponse> handleException(VisitorNotFoundException e) {
-        VisitorErrorResponse response = new VisitorErrorResponse(
-                "Person with this id wasn't found", System.currentTimeMillis());
-
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    private ResponseEntity<VisitorErrorResponse> handleException(VisitorNotCreatedException e) {
-        VisitorErrorResponse response = new VisitorErrorResponse(
-                e.getMessage(), System.currentTimeMillis());
-
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

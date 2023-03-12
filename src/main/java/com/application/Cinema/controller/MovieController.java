@@ -3,9 +3,7 @@ package com.application.Cinema.controller;
 import com.application.Cinema.dto.MovieDTO;
 import com.application.Cinema.model.Movie;
 import com.application.Cinema.service.MovieService;
-import com.application.Cinema.util.exception_handling.movieException.MovieErrorResponse;
 import com.application.Cinema.util.exception_handling.movieException.MovieNotCreatedException;
-import com.application.Cinema.util.exception_handling.movieException.MovieNotFoundException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,21 +78,5 @@ public class MovieController {
 
     private MovieDTO convertToMovieDTO(Movie movie) {
         return modelMapper.map(movie, MovieDTO.class);
-    }
-
-    @ExceptionHandler
-    private ResponseEntity<MovieErrorResponse> handleException(MovieNotFoundException e) {
-        MovieErrorResponse response = new MovieErrorResponse(
-                "Movie with this id wasn't found", System.currentTimeMillis());
-
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    private ResponseEntity<MovieErrorResponse> handleException(MovieNotCreatedException e) {
-        MovieErrorResponse response = new MovieErrorResponse(
-                e.getMessage(), System.currentTimeMillis());
-
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 }

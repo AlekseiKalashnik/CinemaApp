@@ -14,6 +14,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 @Slf4j
 public class VisitorService {
 
@@ -34,6 +35,7 @@ public class VisitorService {
         return visitorOptional.orElseThrow(VisitorNotFoundException::new);
     }
 
+    @Transactional
     public void addNewVisitor(Visitor visitor) {
         log.info("method addNewVisitor in VisitorService");
         Optional<Visitor> visitorOptional = visitorRepository.findVisitorByEmail(visitor.getEmail());
@@ -44,6 +46,7 @@ public class VisitorService {
         visitorRepository.save(visitor);
     }
 
+    @Transactional
     public void deleteVisitor(Integer visitorId) {
         log.info("method deleteVisitor in VisitorService");
         boolean exists = visitorRepository.existsById(visitorId);

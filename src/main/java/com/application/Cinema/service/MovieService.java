@@ -14,6 +14,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 @Slf4j
 public class MovieService {
 
@@ -34,6 +35,7 @@ public class MovieService {
         return movieOptional.orElseThrow(MovieNotFoundException::new);
     }
 
+    @Transactional
     public void addNewMovie(Movie movie) {
         log.info("method addNewMovie in MovieService");
         //throw exception if movie has already existed in DB
@@ -41,6 +43,7 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
+    @Transactional
     public void deleteMovie(Integer movieId) {
         log.info("method deleteMovie in MovieService");
         boolean exists = movieRepository.existsById(movieId);
