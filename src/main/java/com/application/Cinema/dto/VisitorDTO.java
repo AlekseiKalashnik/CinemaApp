@@ -1,6 +1,7 @@
 package com.application.Cinema.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Setter
+@JsonPropertyOrder({"Name", "Age", "Email", "DOB"})
 public class VisitorDTO {
 
     @Column(name = "visitor_name")

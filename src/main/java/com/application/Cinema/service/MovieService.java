@@ -3,6 +3,7 @@ package com.application.Cinema.service;
 import com.application.Cinema.model.Movie;
 import com.application.Cinema.repository.MovieRepository;
 import com.application.Cinema.util.exception_handling.movieException.MovieNotFoundException;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,22 +45,22 @@ public class MovieService {
     }
 
     @Transactional
-    public void deleteMovie(Integer movieId) {
+    public void deleteMovie(Integer id) {
         log.info("method deleteMovie in MovieService");
-        boolean exists = movieRepository.existsById(movieId);
+        boolean exists = movieRepository.existsById(id);
         if(!exists) {
             throw new IllegalArgumentException("movie with id " +
-                    movieId + " does not exists");
+                    id + " does not exists");
         }
-        movieRepository.deleteById(movieId);
+        movieRepository.deleteById(id);
     }
 
     @Transactional
-    public void updateMovie(Integer movieId, String name) {
+    public void updateMovie(Integer id, String name) {
         log.info("method updateMovie in MovieService");
-        Movie movie = movieRepository.findById(movieId)
+        Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException(
-                        "movie with id " + movieId + " does not exists"
+                        "movie with id " + id + " does not exists"
                 ));
 
         if(name != null && name.length() > 0 && !Objects.equals(movie.getName(), name)) {
@@ -68,7 +69,7 @@ public class MovieService {
         movie.setUpdatedAt(LocalDateTime.now());
     }
 
-    private void enrichMovie(Movie movie) {
+    private void enrichMovie(@NotNull Movie movie) {
         movie.setCreatedAt(LocalDateTime.now());
         movie.setUpdatedAt(LocalDateTime.now());
         movie.setCreatedWho("ADMIN");

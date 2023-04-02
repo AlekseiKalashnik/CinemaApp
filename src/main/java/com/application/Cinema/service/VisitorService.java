@@ -3,6 +3,7 @@ package com.application.Cinema.service;
 import com.application.Cinema.model.Visitor;
 import com.application.Cinema.repository.VisitorRepository;
 import com.application.Cinema.util.exception_handling.visitorException.VisitorNotFoundException;
+import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,22 +48,22 @@ public class VisitorService {
     }
 
     @Transactional
-    public void deleteVisitor(Integer visitorId) {
+    public void deleteVisitor(Integer id) {
         log.info("method deleteVisitor in VisitorService");
-        boolean exists = visitorRepository.existsById(visitorId);
+        boolean exists = visitorRepository.existsById(id);
         if(!exists) {
             throw new IllegalArgumentException("visitor with id " +
-                    visitorId + " does not exists");
+                    id + " does not exists");
         }
-        visitorRepository.deleteById(visitorId);
+        visitorRepository.deleteById(id);
     }
 
     @Transactional
-    public void updateVisitor(Integer visitorId, String name, String email) {
+    public void updateVisitor(Integer id, String name, String email) {
         log.info("method updateVisitor in VisitorService");
-        Visitor visitor = visitorRepository.findById(visitorId)
+        Visitor visitor = visitorRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException(
-                        "visitor with id " + visitorId + " does not exists"
+                        "visitor with id " + id + " does not exists"
                 ));
 
         if(name != null && name.length() > 0 && !Objects.equals(visitor.getName(), name)) {
@@ -80,7 +81,7 @@ public class VisitorService {
         visitor.setUpdatedAt(LocalDateTime.now());
     }
 
-    private void enrichVisitor(Visitor visitor) {
+    private void enrichVisitor(@NotNull Visitor visitor) {
         visitor.setCreatedAt(LocalDateTime.now());
         visitor.setUpdatedAt(LocalDateTime.now());
         visitor.setCreatedWho("ADMIN");

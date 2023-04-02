@@ -4,6 +4,7 @@ package com.application.Cinema.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
@@ -35,6 +36,7 @@ public class Visitor {
 
     @Transient
     @JsonProperty(value = "Age")
+    @Min(value = 0, message = "Age should be greater than 0")
     private Integer age;
 
     @Column(name = "email")

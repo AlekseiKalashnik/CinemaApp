@@ -61,13 +61,13 @@ public class MovieController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "{movieId}")
-    public void deleteMovie(@PathVariable("movieId") Integer movieId) {
+    @DeleteMapping(path = "{id}")
+    public void deleteMovie(@PathVariable("id") Integer movieId) {
         movieService.deleteMovie(movieId);
     }
 
-    @PutMapping(path = "{movieId}")
-    public void updateMovie(@PathVariable("movieId") Integer movieId,
+    @PutMapping(path = "{id}")
+    public void updateMovie(@PathVariable("id") Integer movieId,
                               @RequestParam(required = false) String name) {
         movieService.updateMovie(movieId, name);
     }

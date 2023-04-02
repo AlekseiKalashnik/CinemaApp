@@ -61,16 +61,16 @@ public class VisitorController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "{visitorId}")
-    public void deleteVisitor(@PathVariable("visitorId") Integer visitorId) {
+    @DeleteMapping(path = "{id}")
+    public void deleteVisitor(@PathVariable("id") Integer visitorId) {
         visitorService.deleteVisitor(visitorId);
     }
 
-    @PutMapping(path = "{visitorId}")
-    public void updateVisitor(@PathVariable("visitorId") Integer visitorId,
+    @PutMapping(path = "{id}")
+    public void updateVisitor(@PathVariable("id") Integer id,
                               @RequestParam(required = false) String name,
                               @RequestParam(required = false) String email) {
-        visitorService.updateVisitor(visitorId, name, email);
+        visitorService.updateVisitor(id, name, email);
     }
 
     private Visitor convertToVisitor(VisitorDTO visitorDTO) {
