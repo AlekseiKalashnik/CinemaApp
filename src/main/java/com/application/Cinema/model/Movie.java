@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @ToString
 @EqualsAndHashCode
 public class Movie {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

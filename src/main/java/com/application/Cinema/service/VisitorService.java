@@ -40,7 +40,7 @@ public class VisitorService {
     public void addNewVisitor(Visitor visitor) {
         log.info("method addNewVisitor in VisitorService");
         Optional<Visitor> visitorOptional = visitorRepository.findVisitorByEmail(visitor.getEmail());
-        if(visitorOptional.isPresent()) {
+        if (visitorOptional.isPresent()) {
             throw new IllegalArgumentException("email taken");
         }
         enrichVisitor(visitor);
@@ -51,7 +51,7 @@ public class VisitorService {
     public void deleteVisitor(Integer id) {
         log.info("method deleteVisitor in VisitorService");
         boolean exists = visitorRepository.existsById(id);
-        if(!exists) {
+        if (!exists) {
             throw new IllegalArgumentException("visitor with id " +
                     id + " does not exists");
         }
@@ -66,14 +66,14 @@ public class VisitorService {
                         "visitor with id " + id + " does not exists"
                 ));
 
-        if(name != null && name.length() > 0 && !Objects.equals(visitor.getName(), name)) {
+        if (name != null && name.length() > 0 && !Objects.equals(visitor.getName(), name)) {
             visitor.setName(name);
         }
 
-        if(email != null && email.length() > 0 && !Objects.equals(visitor.getEmail(), email)) {
+        if (email != null && email.length() > 0 && !Objects.equals(visitor.getEmail(), email)) {
             Optional<Visitor> visitorOptional = visitorRepository
                     .findVisitorByEmail(email);
-            if(visitorOptional.isPresent()) {
+            if (visitorOptional.isPresent()) {
                 throw new IllegalStateException("email taken");
             }
             visitor.setEmail(email);

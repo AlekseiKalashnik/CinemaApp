@@ -43,12 +43,12 @@ public class MovieController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> registerNewMovie(@RequestBody @Valid MovieDTO movieDTO,
-                                                         BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+                                                       BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             StringBuilder builderErrMessage = new StringBuilder();
 
             List<FieldError> errors = bindingResult.getFieldErrors();
-            for(FieldError error : errors) {
+            for (FieldError error : errors) {
                 builderErrMessage.append(error.getField())
                         .append(" - ")
                         .append(error.getDefaultMessage())
@@ -68,7 +68,7 @@ public class MovieController {
 
     @PutMapping(path = "{id}")
     public void updateMovie(@PathVariable("id") Integer movieId,
-                              @RequestParam(required = false) String name) {
+                            @RequestParam(required = false) String name) {
         movieService.updateMovie(movieId, name);
     }
 

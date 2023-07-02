@@ -1,6 +1,7 @@
 package com.application.Cinema.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Setter
+@JsonPropertyOrder({"Name", "Creation date"})
 public class MovieDTO {
 
     @Column(name = "movie_name")

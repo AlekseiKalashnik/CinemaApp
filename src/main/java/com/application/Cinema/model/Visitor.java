@@ -15,6 +15,7 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+
 @Entity
 @Table(name = "visitor")
 @NoArgsConstructor
@@ -22,6 +23,7 @@ import java.time.Period;
 @ToString
 @EqualsAndHashCode
 public class Visitor {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -48,7 +48,7 @@ public class MovieService {
     public void deleteMovie(Integer id) {
         log.info("method deleteMovie in MovieService");
         boolean exists = movieRepository.existsById(id);
-        if(!exists) {
+        if (!exists) {
             throw new IllegalArgumentException("movie with id " +
                     id + " does not exists");
         }
@@ -63,7 +63,7 @@ public class MovieService {
                         "movie with id " + id + " does not exists"
                 ));
 
-        if(name != null && name.length() > 0 && !Objects.equals(movie.getName(), name)) {
+        if (name != null && name.length() > 0 && !Objects.equals(movie.getName(), name)) {
             movie.setName(name);
         }
         movie.setUpdatedAt(LocalDateTime.now());

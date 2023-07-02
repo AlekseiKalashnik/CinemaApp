@@ -44,11 +44,11 @@ public class VisitorController {
     @PostMapping
     public ResponseEntity<HttpStatus> registerNewVisitor(@RequestBody @Valid VisitorDTO visitorDTO,
                                                          BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             StringBuilder builderErrMessage = new StringBuilder();
 
             List<FieldError> errors = bindingResult.getFieldErrors();
-            for(FieldError error : errors) {
+            for (FieldError error : errors) {
                 builderErrMessage.append(error.getField())
                         .append(" - ")
                         .append(error.getDefaultMessage())
