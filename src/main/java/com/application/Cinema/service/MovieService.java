@@ -72,6 +72,5 @@ public class MovieService {
     private void enrichMovie(@NotNull Movie movie) {
         movie.setCreatedAt(LocalDateTime.now());
         movie.setUpdatedAt(LocalDateTime.now());
-        movie.setCreatedWho("GUEST");
     }
 }
