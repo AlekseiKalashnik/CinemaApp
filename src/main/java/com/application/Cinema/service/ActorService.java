@@ -38,8 +38,8 @@ public class ActorService {
     @Transactional
     public void createActor(Actor actor) {
         log.info("method addNewActor in ActorService");
-        Optional<Actor> actorOptional = actorRepository.findActorByNameAndDob(actor.getName(), actor.getDob());
-        if (actorOptional.isPresent()) {
+        Optional<Actor> existedActor = actorRepository.findActorByNameAndDob(actor.getName(), actor.getDob());
+        if (existedActor.isPresent()) {
             throw new IllegalArgumentException("actor has already existed");
         }
         enrichActor(actor);
@@ -73,6 +73,5 @@ public class ActorService {
     private void enrichActor(@NotNull Actor actor) {
         actor.setCreatedAt(LocalDateTime.now());
         actor.setUpdatedAt(LocalDateTime.now());
-        actor.setCreatedWho("GUEST");
     }
 }

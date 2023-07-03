@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,11 +36,27 @@ public class MovieService {
     }
 
     @Transactional
-    public void addNewMovie(Movie movie) {
+    public void createMovie(Movie movie) {
         log.info("method addNewMovie in MovieService");
-        //throw exception if movie has already existed in DB
-        enrichMovie(movie);
+        Optional<Movie> existedMovie = movieRepository
+                .findMovieByNameAndAndCreationDate(movie.getName(), movie.getCreationDate());
+        if (existedMovie.isPresent()) {
+            throw new IllegalArgumentException("movie has already existed");
+        }        enrichMovie(movie);
         movieRepository.save(movie);
+    }
+
+    @Transactional
+    public void updateMovie(Integer id, Movie movie) {
+        log.info("method updateMovie in MovieService");
+        Movie existedMovie = movieRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException(
+                        "movie does not exists"
+                ));
+        existedMovie.setName(movie.getName());
+        existedMovie.setCreationDate(movie.getCreationDate());
+        existedMovie.setUpdatedAt(LocalDateTime.now());
+        movieRepository.save(existedMovie);
     }
 
     @Transactional
@@ -49,29 +64,14 @@ public class MovieService {
         log.info("method deleteMovie in MovieService");
         boolean exists = movieRepository.existsById(id);
         if (!exists) {
-            throw new IllegalArgumentException("movie with id " +
-                    id + " does not exists");
+            throw new IllegalArgumentException("movie does not exists");
         }
         movieRepository.deleteById(id);
-    }
-
-    @Transactional
-    public void updateMovie(Integer id, String name) {
-        log.info("method updateMovie in MovieService");
-        Movie movie = movieRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException(
-                        "movie with id " + id + " does not exists"
-                ));
-
-        if (name != null && name.length() > 0 && !Objects.equals(movie.getName(), name)) {
-            movie.setName(name);
-        }
-        movie.setUpdatedAt(LocalDateTime.now());
     }
 
     private void enrichMovie(@NotNull Movie movie) {
         movie.setCreatedAt(LocalDateTime.now());
         movie.setUpdatedAt(LocalDateTime.now());
-        movie.setCreatedWho("ADMIN");
+        movie.setCreatedWho("GUEST");
     }
 }

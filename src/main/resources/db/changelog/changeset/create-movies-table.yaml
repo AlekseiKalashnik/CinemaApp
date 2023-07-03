@@ -27,6 +27,3 @@ databaseChangeLog:
               - column:
                   name: updated_at
                   type: timestamp
-              - column:
-                  name: created_who
-                  type: varchar(255)

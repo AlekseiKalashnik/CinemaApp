@@ -3,7 +3,9 @@ package com.application.Cinema.controller;
 import com.application.Cinema.dto.MovieDTO;
 import com.application.Cinema.model.Movie;
 import com.application.Cinema.service.MovieService;
+import com.application.Cinema.util.exception_handling.movieException.MovieErrorResponse;
 import com.application.Cinema.util.exception_handling.movieException.MovieNotCreatedException;
+import com.application.Cinema.util.exception_handling.movieException.MovieNotFoundException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/cinema/movie")
+@RequestMapping(path = "api/v1/cinema/movies")
 public class MovieController {
 
     private final MovieService movieService;
@@ -32,8 +33,11 @@ public class MovieController {
 
     @GetMapping()
     public List<MovieDTO> getMovies() {
-        return movieService.getMovies().stream().map(this::convertToMovieDTO)
-                .collect(Collectors.toList());
+        return movieService
+                .getMovies()
+                .stream()
+                .map(this::convertToMovieDTO)
+                .toList();
     }
 
     @GetMapping(value = "/{id}")
@@ -56,9 +60,14 @@ public class MovieController {
             }
             throw new MovieNotCreatedException(builderErrMessage.toString());
         }
-        movieService.addNewMovie(convertToMovie(movieDTO));
+        movieService.createMovie(convertToMovie(movieDTO));
 
         return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @PutMapping(path = "{id}")
+    public void updateMovie(@PathVariable("id") Integer movieId, @RequestBody MovieDTO movieDTO) {
+        movieService.updateMovie(movieId, convertToMovie(movieDTO));
     }
 
     @DeleteMapping(path = "{id}")
@@ -66,10 +75,21 @@ public class MovieController {
         movieService.deleteMovie(movieId);
     }
 
-    @PutMapping(path = "{id}")
-    public void updateMovie(@PathVariable("id") Integer movieId,
-                            @RequestParam(required = false) String name) {
-        movieService.updateMovie(movieId, name);
+    @ExceptionHandler
+    private ResponseEntity<MovieErrorResponse> handleException(MovieNotFoundException e) {
+        MovieErrorResponse response = new MovieErrorResponse(
+                "Movie with this id was not found",
+                System.currentTimeMillis());
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<MovieErrorResponse> handleException(MovieNotCreatedException e) {
+        MovieErrorResponse response = new MovieErrorResponse(
+                e.getMessage(), System.currentTimeMillis());
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     private Movie convertToMovie(MovieDTO movieDTO) {

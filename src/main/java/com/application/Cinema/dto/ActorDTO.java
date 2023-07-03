@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Setter
 @Getter
-@JsonPropertyOrder({"Name", "DOB"})
+@JsonPropertyOrder({"Name", "Age", "DOB"})
 public class ActorDTO {
 
     @NotEmpty(message = "name shouldn't be empty")
@@ -26,12 +26,4 @@ public class ActorDTO {
     @Past(message = "Date of birth can't be earlie then current time")
     @JsonProperty(value = "DOB")
     private LocalDate dob;
-
-    public String getName() {
-        return name;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
 }

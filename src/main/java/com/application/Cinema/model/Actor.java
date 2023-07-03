@@ -1,7 +1,6 @@
 package com.application.Cinema.model;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.EqualsAndHashCode;
@@ -35,14 +34,11 @@ public class Actor {
     private Integer age;
 
     @Past(message = "Date of birth can't be earlie then current time")
-    @JsonProperty(value = "DOB")
     private LocalDate dob;
 
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
-
-    private String createdWho;
 
     public Actor(String name, LocalDate dob) {
         this.name = name;
@@ -71,9 +67,5 @@ public class Actor {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public String getCreatedWho() {
-        return createdWho;
     }
 }

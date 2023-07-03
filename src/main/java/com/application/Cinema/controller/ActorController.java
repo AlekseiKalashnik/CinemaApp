@@ -87,8 +87,7 @@ public class ActorController {
     @ExceptionHandler
     private ResponseEntity<ActorErrorResponse> handleException(ActorNotCreatedException e) {
         ActorErrorResponse response = new ActorErrorResponse(
-                e.getMessage(),
-                System.currentTimeMillis()
+                e.getMessage(), System.currentTimeMillis()
         );
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
