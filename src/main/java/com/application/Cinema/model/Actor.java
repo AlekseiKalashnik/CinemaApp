@@ -33,6 +33,8 @@ public class Actor {
     @Min(value = 1, message = "Age should be greater than 1")
     @Max(value = 100, message = "Age should be less than 100")
     private Integer age;
+
+    @Past(message = "Date of birth can't be earlie then current time")
     @JsonProperty(value = "DOB")
     private LocalDate dob;
 

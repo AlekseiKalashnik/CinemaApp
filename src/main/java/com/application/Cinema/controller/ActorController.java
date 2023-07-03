@@ -3,7 +3,9 @@ package com.application.Cinema.controller;
 import com.application.Cinema.dto.ActorDTO;
 import com.application.Cinema.model.Actor;
 import com.application.Cinema.service.ActorService;
+import com.application.Cinema.util.exception_handling.actorException.ActorErrorResponse;
 import com.application.Cinema.util.exception_handling.actorException.ActorNotCreatedException;
+import com.application.Cinema.util.exception_handling.actorException.ActorNotFoundException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "api/v1/cinema/actors")
@@ -32,8 +33,11 @@ public class ActorController {
 
     @GetMapping
     public List<ActorDTO> getActors() {
-        return actorService.getActors().stream().map(this::convertToActorDTO)
-                .collect(Collectors.toList());
+        return actorService
+                .getActors()
+                .stream()
+                .map(this::convertToActorDTO)
+                .toList();
     }
 
     @GetMapping(value = "/{id}")
@@ -69,6 +73,24 @@ public class ActorController {
     @DeleteMapping(path = "/{id}")
     public void deleteActor(@PathVariable("id") Integer id) {
         actorService.deleteActor(id);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ActorErrorResponse> handleException(ActorNotFoundException e) {
+        ActorErrorResponse response = new ActorErrorResponse(
+                "Actor with this id was not found",
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<ActorErrorResponse> handleException(ActorNotCreatedException e) {
+        ActorErrorResponse response = new ActorErrorResponse(
+                e.getMessage(),
+                System.currentTimeMillis()
+        );
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     private Actor convertToActor(ActorDTO actorDTO) {

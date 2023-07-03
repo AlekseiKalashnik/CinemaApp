@@ -31,8 +31,8 @@ public class ActorService {
 
     public Actor getActorById(Integer id) {
         log.info("method getActorById in ActorService");
-        Optional<Actor> actorOptional = actorRepository.findById(id);
-        return actorOptional.orElseThrow(ActorNotFoundException::new);
+        Optional<Actor> foundActor = actorRepository.findById(id);
+        return foundActor.orElseThrow(ActorNotFoundException::new);
     }
 
     @Transactional
