@@ -1,10 +1,10 @@
 databaseChangeLog:
-  - changeSet:
-      id: create-movie
+- changeSet:
+      id: create-movies
       author: admin
       changes:
         - createTable:
-            tableName: movie
+            tableName: movies
             columns:
               - column:
                   name: id

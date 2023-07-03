@@ -1,10 +1,10 @@
 databaseChangeLog:
-  - changeSet:
-      id: add-movie
+- changeSet:
+      id: add-movies
       author: admin
       changes:
         - insert:
-            tableName: movie
+            tableName: movies
             columns:
               - column:
                   name: movie_name
@@ -12,8 +12,11 @@ databaseChangeLog:
               - column:
                   name: creation_date
                   value: 1995-03-31
+              - column:
+                  name: created_at
+                  value: now()
         - insert:
-            tableName: movie
+            tableName: movies
             columns:
               - column:
                   name: movie_name
@@ -21,3 +24,6 @@ databaseChangeLog:
               - column:
                   name: creation_date
                   value: 2011-09-09
+              - column:
+                  name: created_at
+                  value: now()

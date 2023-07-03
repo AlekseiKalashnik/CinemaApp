@@ -1,0 +1,35 @@
+databaseChangeLog:
+- changeSet:
+        id: add-actors
+        author: admin
+        changes:
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Samuel
+              - column:
+                  name: dob
+                  value: 2000-01-05
+              - column:
+                  name: age
+                  value: '23'
+              - column:
+                  name: created_at
+                  value: now()
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Micky
+              - column:
+                  name: dob
+                  value: 1995-07-15
+              - column:
+                  name: age
+                  value: '28'
+              - column:
+                  name: created_at
+                  value: now()

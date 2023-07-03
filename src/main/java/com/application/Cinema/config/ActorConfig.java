@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class VisitorConfig {
+public class ActorConfig {
 
 //    @Bean("visitorRunner")
 //    CommandLineRunner commandLineRunner(
@@ -29,7 +29,7 @@ public class VisitorConfig {
 //        };
 //    }
 
-    @Bean("visitorMapper")
+    @Bean("actorMapper")
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }

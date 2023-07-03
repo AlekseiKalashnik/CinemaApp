@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "movie")
+@Table(name = "movies")
 @NoArgsConstructor
 @Setter
 @ToString

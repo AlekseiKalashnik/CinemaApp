@@ -1,10 +1,10 @@
 databaseChangeLog:
-  - changeSet:
-      id: create-visitor
-      author: admin
-      changes:
+- changeSet:
+    id: create-actors
+    author: admin
+    changes:
         - createTable:
-            tableName: visitor
+            tableName: actors
             columns:
               - column:
                   name: id
@@ -14,7 +14,7 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: visitor_name
+                  name: actor_name
                   type: varchar(255)
                   constraints:
                     nullable: false
@@ -24,11 +24,6 @@ databaseChangeLog:
                   constraints:
                     nullable: true
                     check: age > 0
-              - column:
-                  name: email
-                  type: varchar(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: dob
                   type: date
