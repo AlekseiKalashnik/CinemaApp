@@ -11,6 +11,8 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "actors")
@@ -35,6 +37,14 @@ public class Actor {
 
     @Past(message = "Date of birth can't be earlie then current time")
     private LocalDate dob;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "actor_movie",
+            joinColumns = { @JoinColumn(name = "actor_id") },
+            inverseJoinColumns = { @JoinColumn(name = "movie_id") }
+    )
+    Set<Movie> movies = new HashSet<>();
 
     private LocalDateTime createdAt;
 

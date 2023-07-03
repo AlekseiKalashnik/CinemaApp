@@ -11,6 +11,8 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "movies")
@@ -31,6 +33,9 @@ public class Movie {
 
     @Past(message = "Date of creation can't be earlie then current time")
     private LocalDate creationDate;
+
+    @ManyToMany(mappedBy = "movies")
+    private Set<Actor> actors = new HashSet<>();
 
     private LocalDateTime createdAt;
 
