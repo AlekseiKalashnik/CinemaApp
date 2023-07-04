@@ -1,7 +1,6 @@
 
 # CRUD RESTfull Cinema Application
->__Details Web messenger clone__
->You can create/read/update/delete actors add movies.
+>__You can create/read/update/delete actors add movies.__
 
 ## Used technologies
 * **Java 17**
@@ -24,6 +23,7 @@ git clone https://github.com/AlekseiKalashnik/CinemaApp.git
 ```
 
 **2. Create PostgreSQL database**
+
 ```bash
 create database cinema_db
 ```
@@ -33,11 +33,29 @@ create database cinema_db
 + open `src/main/resources/application.properties`
 + change `spring.datasource.username` and `spring.datasource.password` as per your PostgreSQL installation
 
-**4. Run the app using maven**
+
+**4.Run the app:**
+
++ using maven
 
 ```bash
 mvn spring-boot:run
 ```
+
++ using docker
+
+```bash
+docker build --platform linux/amd64 -t cinema-app .
+
+docker run -p 8080:8080 -t cinema-app
+``` 
+
++ using docker compose
+
+```bash
+docker compose up -d
+``` 
+
 The app will start running at <http://localhost:8080>
 
 ## Explore Rest APIs
