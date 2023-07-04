@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-movie
+      author: admin
+      changes:
+        - insert:
+            tableName: movie
+            columns:
+              - column:
+                  name: movie_name
+                  value: Matrix
+              - column:
+                  name: creation_date
+                  value: 1995-03-31
+        - insert:
+            tableName: movie
+            columns:
+              - column:
+                  name: movie_name
+                  value: Warrior
+              - column:
+                  name: creation_date
+                  value: 2011-09-09
