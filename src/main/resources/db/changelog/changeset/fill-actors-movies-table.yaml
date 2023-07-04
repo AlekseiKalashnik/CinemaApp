@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-actor-and-movie
+      author: admin
+      changes:
+        - insert:
+            tableName: actor_movie
+            columns:
+              - column:
+                  name: actor_id
+                  value: '1'
+              - column:
+                  name: movie_id
+                  value: '2'
+        - insert:
+            tableName: actor_movie
+            columns:
+              - column:
+                  name: actor_id
+                  value: '1'
+              - column:
+                  name: movie_id
+                  value: '4'
+        - insert:
+            tableName: actor_movie
+            columns:
+              - column:
+                  name: actor_id
+                  value: '2'
+              - column:
+                  name: movie_id
+                  value: '8'

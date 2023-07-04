@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-actor-movie
+      author: admin
+      changes:
+        - createTable:
+            tableName: actor_movie
+            columns:
+              - column:
+                  name: actor_id
+                  type: int
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: true
+                    foreignKeyName: actor_id
+                    referencedTableName: actors
+                    referencedColumnNames: id
+              - column:
+                  name: movie_id
+                  type: int
+                  autoIncrement: false
+                  constraints:
+                    primaryKey: true
+                    nullable: true
+                    foreignKeyName: movie_id
+                    referencedTableName: movies
+                    referencedColumnNames: id

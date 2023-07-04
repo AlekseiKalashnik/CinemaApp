@@ -1,4 +1,4 @@
-package com.application.Cinema.util.exception_handling.visitorException;
+package com.application.Cinema.util.exception_handling.actorException;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class VisitorErrorResponse {
+public class ActorErrorResponse {
     private String message;
     private long timestamp;
 }

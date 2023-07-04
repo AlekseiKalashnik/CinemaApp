@@ -17,10 +17,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/cinema/movie")
+@RequestMapping(path = "api/v1/cinema/movies")
 public class MovieController {
 
     private final MovieService movieService;
@@ -34,8 +33,11 @@ public class MovieController {
 
     @GetMapping()
     public List<MovieDTO> getMovies() {
-        return movieService.getMovies().stream().map(this::convertToMovieDTO)
-                .collect(Collectors.toList());
+        return movieService
+                .getMovies()
+                .stream()
+                .map(this::convertToMovieDTO)
+                .toList();
     }
 
     @GetMapping(value = "/{id}")
@@ -45,12 +47,12 @@ public class MovieController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> registerNewMovie(@RequestBody @Valid MovieDTO movieDTO,
-                                                         BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
+                                                       BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             StringBuilder builderErrMessage = new StringBuilder();
 
             List<FieldError> errors = bindingResult.getFieldErrors();
-            for(FieldError error : errors) {
+            for (FieldError error : errors) {
                 builderErrMessage.append(error.getField())
                         .append(" - ")
                         .append(error.getDefaultMessage())
@@ -58,34 +60,26 @@ public class MovieController {
             }
             throw new MovieNotCreatedException(builderErrMessage.toString());
         }
-        movieService.addNewMovie(convertToMovie(movieDTO));
+        movieService.createMovie(convertToMovie(movieDTO));
 
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "{movieId}")
-    public void deleteMovie(@PathVariable("movieId") Integer movieId) {
+    @PutMapping(path = "{id}")
+    public void updateMovie(@PathVariable("id") Integer movieId, @RequestBody MovieDTO movieDTO) {
+        movieService.updateMovie(movieId, convertToMovie(movieDTO));
+    }
+
+    @DeleteMapping(path = "{id}")
+    public void deleteMovie(@PathVariable("id") Integer movieId) {
         movieService.deleteMovie(movieId);
-    }
-
-    @PutMapping(path = "{movieId}")
-    public void updateMovie(@PathVariable("movieId") Integer movieId,
-                              @RequestParam(required = false) String name) {
-        movieService.updateMovie(movieId, name);
-    }
-
-    private Movie convertToMovie(MovieDTO movieDTO) {
-        return modelMapper.map(movieDTO, Movie.class);
-    }
-
-    private MovieDTO convertToMovieDTO(Movie movie) {
-        return modelMapper.map(movie, MovieDTO.class);
     }
 
     @ExceptionHandler
     private ResponseEntity<MovieErrorResponse> handleException(MovieNotFoundException e) {
         MovieErrorResponse response = new MovieErrorResponse(
-                "Movie with this id wasn't found", System.currentTimeMillis());
+                "Movie with this id was not found",
+                System.currentTimeMillis());
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
@@ -96,5 +90,13 @@ public class MovieController {
                 e.getMessage(), System.currentTimeMillis());
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    private Movie convertToMovie(MovieDTO movieDTO) {
+        return modelMapper.map(movieDTO, Movie.class);
+    }
+
+    private MovieDTO convertToMovieDTO(Movie movie) {
+        return modelMapper.map(movie, MovieDTO.class);
     }
 }

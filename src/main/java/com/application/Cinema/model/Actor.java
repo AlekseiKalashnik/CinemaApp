@@ -1,11 +1,8 @@
 package com.application.Cinema.model;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,51 +11,47 @@ import lombok.ToString;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name = "visitor")
+@Table(name = "actors")
 @NoArgsConstructor
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Visitor {
+public class Actor {
+
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty(value = "Id")
     private Integer id;
 
-    @Column(name = "visitor_name")
+    @Column(name = "actor_name")
     @NotEmpty(message = "name shouldn't be empty")
-    @Size(min = 2, max = 32, message = "name should be between 2 and 32 characters")
-    @JsonProperty(value = "Name")
+    @Size(min = 1, max = 72, message = "name should be between 1 and 72 characters")
     private String name;
 
-    @Transient
-    @JsonProperty(value = "Age")
+    @Min(value = 1, message = "Age should be greater than 1")
+    @Max(value = 100, message = "Age should be less than 100")
     private Integer age;
 
-    @Column(name = "email")
-    @Email
-    @NotEmpty(message = "email shouldn't be empty")
-    @JsonProperty(value = "Email")
-    private String email;
-
-    @Column(name = "dob")
-    @JsonProperty(value = "DOB")
+    @Past(message = "Date of birth can't be earlie then current time")
     private LocalDate dob;
 
-    @Column(name = "created_at")
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "actor_movie",
+            joinColumns = { @JoinColumn(name = "actor_id") },
+            inverseJoinColumns = { @JoinColumn(name = "movie_id") }
+    )
+    Set<Movie> movies = new HashSet<>();
+
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "created_who")
-    private String createdWho;
-
-    public Visitor(String name, String email, LocalDate dob) {
+    public Actor(String name, LocalDate dob) {
         this.name = name;
-        this.email = email;
         this.dob = dob;
     }
 
@@ -74,10 +67,6 @@ public class Visitor {
         return Period.between(this.dob, LocalDate.now()).getYears();
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public LocalDate getDob() {
         return dob;
     }
@@ -88,9 +77,5 @@ public class Visitor {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
-    }
-
-    public String getCreatedWho() {
-        return createdWho;
     }
 }

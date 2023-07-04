@@ -1,0 +1,125 @@
+databaseChangeLog:
+- changeSet:
+        id: add-actors
+        author: admin
+        changes:
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Аль Пачино
+              - column:
+                  name: dob
+                  value: 1940-04-25
+              - column:
+                  name: age
+                  value: '83'
+              - column:
+                  name: created_at
+                  value: now()
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Сэмюэл Л. Джексон
+              - column:
+                  name: dob
+                  value: 1948-12-21
+              - column:
+                  name: age
+                  value: '75'
+              - column:
+                  name: created_at
+                  value: now()
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Морган Фримен
+              - column:
+                  name: dob
+                  value: 1937-06-01
+              - column:
+                  name: age
+                  value: '86'
+              - column:
+                  name: created_at
+                  value: now()
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Клинт Иствуд
+              - column:
+                  name: dob
+                  value: 1930-05-31
+              - column:
+                  name: age
+                  value: '93'
+              - column:
+                  name: created_at
+                  value: now()
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Сильвестр Сталлоне
+              - column:
+                  name: dob
+                  value: 1946-07-06
+              - column:
+                  name: age
+                  value: '77'
+              - column:
+                  name: created_at
+                  value: now()
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Вигго Мортенсен
+              - column:
+                  name: dob
+                  value: 1958-10-20
+              - column:
+                  name: age
+                  value: '65'
+              - column:
+                  name: created_at
+                  value: now()
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Том Харди
+              - column:
+                  name: dob
+                  value: 1977-11-15
+              - column:
+                  name: age
+                  value: '46'
+              - column:
+                  name: created_at
+                  value: now()
+        - insert:
+            tableName: actors
+            columns:
+              - column:
+                  name: actor_name
+                  value: Джейсон Стэтхэм
+              - column:
+                  name: dob
+                  value: 1967-07-26
+              - column:
+                  name: age
+                  value: '56'
+              - column:
+                  name: created_at
+                  value: now()
